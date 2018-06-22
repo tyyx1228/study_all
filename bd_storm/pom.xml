@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ty.study</groupId>
+    <artifactId>bd_storm</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>learnRedis</module>
+        <module>stormApi-wordcount</module>
+        <module>stormApi-stream</module>
+        <module>stormApi-myStorm</module>
+        <module>stormApi-double11</module>
+        <module>stormApi-printFile</module>
+        <module>stormApi-kafka</module>
+        <module>stormApi-logmonitor</module>
+        <module>stormApi-loganalyzer</module>
+        <module>stormApi-ordermonitor</module>
+        <module>stormApi-recommender</module>
+        <module>stormApi-flume</module>
+        <module>stormApi-ackfail</module>
+        <module>stormApi-kafka2hdfs</module>
+    </modules>
+
+
+
+
+</project>
