@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       default-autowire="byName"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--Service -->
+    <bean name="userService" class="com.ty.study.recommender.recommender.service.impl.UserProfileServiceImpl"/>
+    <bean name="productService" class="com.ty.study.recommender.recommender.service.impl.ProductServiceImpl"/>
+    <bean name="ruleService" class="com.ty.study.recommender.recommender.service.impl.RuleServiceImpl"/>
+    <bean name="recommendModelService" class="com.ty.study.recommender.recommender.service.impl.model.RecommendModelServiceImpl"/>
+    <bean name="recommendService" class="com.ty.study.recommender.recommender.service.impl.RecommendServiceImpl"/>
+</beans>
