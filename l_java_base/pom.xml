@@ -12,7 +12,6 @@
 
     <modules>
         <module>study-proxy</module>
-        <module>study-test</module>
         <module>study-aop-DIY</module>
         <module>study-base-plus</module>
         <module>study-base</module>
