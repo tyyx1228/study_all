@@ -1,0 +1,2 @@
+linux:org.elasticsearch.bootstrap.Elasticsearch:root@10.10.1.60:cluster-start/es-batch.sh:start
+yarn:com.inbasis.realtime.streaming.AFRealtimeCalulatorPlus:root@10.10.1.60:af-start-rtc.sh:param1,param2
