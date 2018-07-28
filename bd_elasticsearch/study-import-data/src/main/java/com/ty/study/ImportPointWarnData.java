@@ -32,12 +32,12 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 public class ImportPointWarnData {
 
     public static void main(String[] args) {
-        ExecutorService pool = Executors.newFixedThreadPool(32);
+        ExecutorService pool = Executors.newFixedThreadPool(10);
         try{
             ArrayList<PointWarnData> list = newArrayList();
 
             Iterator<String> lines = null;
-            lines = Files.lines(Paths.get("d:/part-m-00012")).iterator();
+            lines = Files.lines(Paths.get("d:/part-m-00011")).iterator();
 
             while (lines.hasNext()){
                 PointWarnData pwd = parseLine(lines.next());
@@ -45,7 +45,7 @@ public class ImportPointWarnData {
                 if(pwd !=null){
                     list.add(pwd);
                 }
-                if(list.size()%300==0) {
+                if(list.size()%5000==0) {
                     pool.execute(new ImportTask(list));
                     list = newArrayList();
                 }
@@ -146,8 +146,9 @@ class ImportTask implements Runnable{
                             client.prepareIndex("point_warn", "itemList").setSource(builder)
                     );
                 }
+                long startTime = System.currentTimeMillis();
                 BulkResponse bulkItemResponses = bulkRequest.get();
-                log.info("条目数:{}, 状态： {}", bulkItemResponses.getItems().length, bulkItemResponses.status().getStatus());
+                log.info("条目数:{}, 状态： {}, 耗时:{} ms", bulkItemResponses.getItems().length, bulkItemResponses.status().getStatus(), System.currentTimeMillis()-startTime);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
