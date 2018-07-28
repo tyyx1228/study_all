@@ -12,21 +12,8 @@
     <modules>
         <module>study-es-api</module>
         <module>study-import-data</module>
+        <module>spring-data-es</module>
     </modules>
     <artifactId>bd_elasticsearch</artifactId>
 
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
