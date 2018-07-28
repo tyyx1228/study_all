@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn"> <!-- 自动检查配置 monitorInterval>=5，单位：秒  -->
+    <!--
+        配置文件加载顺序，配置文件格式(suffix)支持：properties, yaml, json, xml
+        配置文件分两类：  log4j2-test.<suffix> 和  log4j2.<suffix>, 按顺序先加载log4j2-test后加载log4j2
+            PropertiesConfiguration
+            YamlConfiguration
+            JsonConfiguration
+            XmlConfiguration
+            DefaultConfiguration（以上四种配置或八个配置文件都找不到，则使用默认配置Level=error，日志将输出到控制台。lever可以使用系统参数org.apache.logging.log4j.level指定）
+
+
+        log4j2 Component:  Appenders, Filters, Layouts, Lookups, and Pattern
+
+        Loggers(记录器):
+            规则：只输出级别不低于设定级别的日志信息，假设Loggers级别设定为INFO，则INFO、WARN、ERROR和FATAL级别的日志信息都会输出，而级别比INFO低的DEBUG则不会输出。
+            OFF 	0
+            FATAL 	100
+            ERROR 	200
+            WARN 	300
+            INFO 	400
+            DEBUG 	500
+            TRACE 	600
+            ALL 	Integer.MAX_VALUE
+    -->
+
+
+    <Appenders>
+        <File name="file" fileName="./logs/app.log">
+            <PatternLayout>
+                <!--<Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>-->
+                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <Console name="STDOUT" target="SYSTEM_ERR">
+            <!--eg-content:  2018-01-25 10:22:26.333 [main] INFO  HelloWorld - Hello, World!
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
+
+            <!--2018-01-25 14:29:23,204 DEBUG [main] com.tongyu.log4j2.FormatLogger
+            <PatternLayout pattern="%d %p [%t] %c{*.} %m%n"/>-->
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p [%t] %c{*.}: %m%n"/>-
+
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <!--<AppenderRef ref="file" level="DEBUG"/>-->
+            <AppenderRef ref="STDOUT" level="INFO"/>
+        </Root>
+    </Loggers>
+</Configuration>
