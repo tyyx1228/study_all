@@ -15,6 +15,7 @@
         <module>java-rest-high</module>
         <module>java-rest-low</module>
         <module>java-transport</module>
+        <module>java-jdbc</module>
     </modules>
 
     <dependencies>
