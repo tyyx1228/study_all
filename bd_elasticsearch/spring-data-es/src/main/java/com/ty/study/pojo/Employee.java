@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 
 
 /**
+ * 注：除了Id字段外，文档对象无法映射elasticsearch中的字段，要想映射，对象字段名称必须与es中的字段名称完全相同
  * @author relax tongyu
  * @create 2018-07-28 13:16
  **/
