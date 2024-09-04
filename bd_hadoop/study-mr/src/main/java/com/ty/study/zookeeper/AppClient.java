@@ -16,15 +16,15 @@ public class AppClient {
 	private volatile List<String> serverList;
 
 	/**
-	 * Á¬½Ózookeeper
+	 * è¿æ¥zookeeper
 	 */
 	public void connectZookeeper() throws Exception {
 		zk = new ZooKeeper("hadoop05:2181,hadoop06:2181,hadoop07:2181", 5000, new Watcher() {
 			public void process(WatchedEvent event) {
-				// Èç¹û·¢ÉúÁË"/sgroup"½ÚµãÏÂµÄ×Ó½Úµã±ä»¯ÊÂ¼ş, ¸üĞÂserverÁĞ±í, ²¢ÖØĞÂ×¢²á¼àÌı
+				// å¦‚æœå‘ç”Ÿäº†"/sgroup"èŠ‚ç‚¹ä¸‹çš„å­èŠ‚ç‚¹å˜åŒ–äº‹ä»¶, æ›´æ–°serveråˆ—è¡¨, å¹¶é‡æ–°æ³¨å†Œç›‘å¬
 				if (event.getType() == EventType.NodeChildrenChanged && ("/" + groupNode).equals(event.getPath())) {
 					try {
-						// »ñÈ¡·şÎñÆ÷£¬²¢ÖØĞÂ×¢²á¼àÌı
+						// è·å–æœåŠ¡å™¨ï¼Œå¹¶é‡æ–°æ³¨å†Œç›‘å¬
 						updateServerList();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -37,29 +37,29 @@ public class AppClient {
 	}
 
 	/**
-	 * ¸üĞÂserverÁĞ±í
+	 * æ›´æ–°serveråˆ—è¡¨
 	 */
 	private void updateServerList() throws Exception {
 		List<String> newServerList = new ArrayList<String>();
 
-		// »ñÈ¡²¢¼àÌıgroupNodeµÄ×Ó½Úµã±ä»¯
-		// watch²ÎÊıÎªtrue, ±íÊ¾¼àÌı×Ó½Úµã±ä»¯ÊÂ¼ş.
-		// Ã¿´Î¶¼ĞèÒªÖØĞÂ×¢²á¼àÌı, ÒòÎªÒ»´Î×¢²á, Ö»ÄÜ¼àÌıÒ»´ÎÊÂ¼ş, Èç¹û»¹Ïë¼ÌĞø±£³Ö¼àÌı, ±ØĞëÖØĞÂ×¢²á
+		// è·å–å¹¶ç›‘å¬groupNodeçš„å­èŠ‚ç‚¹å˜åŒ–
+		// watchå‚æ•°ä¸ºtrue, è¡¨ç¤ºç›‘å¬å­èŠ‚ç‚¹å˜åŒ–äº‹ä»¶.
+		// æ¯æ¬¡éƒ½éœ€è¦é‡æ–°æ³¨å†Œç›‘å¬, å› ä¸ºä¸€æ¬¡æ³¨å†Œ, åªèƒ½ç›‘å¬ä¸€æ¬¡äº‹ä»¶, å¦‚æœè¿˜æƒ³ç»§ç»­ä¿æŒç›‘å¬, å¿…é¡»é‡æ–°æ³¨å†Œ
 		List<String> subList = zk.getChildren("/" + groupNode, true);
 		for (String subNode : subList) {
-			// »ñÈ¡Ã¿¸ö×Ó½ÚµãÏÂ¹ØÁªµÄserverµØÖ·
+			// è·å–æ¯ä¸ªå­èŠ‚ç‚¹ä¸‹å…³è”çš„serveråœ°å€
 			byte[] data = zk.getData("/" + groupNode + "/" + subNode, false, stat);
 			newServerList.add(new String(data, "utf-8"));
 		}
 
-		// Ìæ»»serverÁĞ±í
+		// æ›¿æ¢serveråˆ—è¡¨
 		serverList = newServerList;
 
 		System.out.println("server list updated: " + serverList);
 	}
 
 	/**
-	 * clientµÄ¹¤×÷Âß¼­Ğ´ÔÚÕâ¸ö·½·¨ÖĞ ´Ë´¦²»×öÈÎºÎ´¦Àí, Ö»ÈÃclient sleep
+	 * clientçš„å·¥ä½œé€»è¾‘å†™åœ¨è¿™ä¸ªæ–¹æ³•ä¸­ æ­¤å¤„ä¸åšä»»ä½•å¤„ç†, åªè®©client sleep
 	 */
 	public void handle() throws InterruptedException {
 		Thread.sleep(Long.MAX_VALUE);
@@ -69,7 +69,7 @@ public class AppClient {
 		AppClient ac = new AppClient();
 		ac.connectZookeeper();
 
-		//Æô¶¯ÒµÎñ¹¦ÄÜ
+		//å¯åŠ¨ä¸šåŠ¡åŠŸèƒ½
 		ac.handle();
 	}
 }

@@ -8,7 +8,7 @@ import com.ty.study.diyaop.proxy.ProxyFactoryBean;
  *@time 2015年2月7日 上午10:58:59
  */
 
-public class StudentDAOImpl extends ProxyFactoryBean implements StudentDAO {
+public class StudentDAOImpl implements StudentDAO {
 
 	@Override
 	public boolean insert() {

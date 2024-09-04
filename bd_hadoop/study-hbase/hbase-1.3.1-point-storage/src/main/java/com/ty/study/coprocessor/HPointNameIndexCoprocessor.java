@@ -1,23 +1,23 @@
 package com.ty.study.coprocessor;
 
+import com.google.common.collect.Lists;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.Cell;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.coprocessor.BaseRegionObserver;
 import org.apache.hadoop.hbase.coprocessor.ObserverContext;
 import org.apache.hadoop.hbase.coprocessor.RegionCoprocessorEnvironment;
+import org.apache.hadoop.hbase.regionserver.*;
 import org.apache.hadoop.hbase.regionserver.wal.WALEdit;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.DataOutput;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * rowkey按测点名称一次排序，按时间二次排序，索引测点数据
@@ -136,6 +136,53 @@ public class HPointNameIndexCoprocessor extends BaseRegionObserver {
         indexTbl.close();
     }
 
+    @Override
+    public void preBatchMutate(final ObserverContext<RegionCoprocessorEnvironment> ctx,
+                               final MiniBatchOperationInProgress<Mutation> miniBatchOp) throws IOException {
+        //
+
+        HRegionServer rs = (HRegionServer) ctx.getEnvironment().getRegionServerServices();
+        HRegionInfo regionInfo = ctx.getEnvironment().getRegionInfo();
+
+
+        byte[] startKey = regionInfo.getStartKey();
+
+        List<Region> indexTblRegions = rs.getOnlineRegions(TableName.valueOf("table name of index"));
+
+        //查找index表的region
+        Region indexRegion = null;
+        for(Region r: indexTblRegions){
+            if(Bytes.equals(startKey, r.getRegionInfo().getStartKey())){
+                indexRegion = r;
+                break;
+            }
+        }
+
+        //为索引表生成数据
+        Mutation[] indexMutations = new Mutation[miniBatchOp.size()];
+        for(int i=0; i<miniBatchOp.size(); i++){
+            WALEdit walEdit = miniBatchOp.getWalEdit(i);
+            Mutation operation = miniBatchOp.getOperation(i);
+
+            //判断WAL机制，索引表与原表保持一致
+            Durability durability = operation.getDurability();
+
+
+            if(operation instanceof Put){
+                Put indexPut = new Put();
+                indexMutations[i] = indexPut;
+
+            }else if(operation instanceof Delete){
+                Delete indexDelete = new Delete();
+                indexMutations[i] = indexDelete;
+
+            }
+        }
+
+        /*indexRegion.batchMutate(indexMutations, HConstants.NO_NONCE,
+                HConstants.NO_NONCE);*/
+
+    }
 
 
     public static void main(String[] args) {

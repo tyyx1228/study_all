@@ -13,6 +13,8 @@
         <module>dsp-analyze-smaple</module>
         <module>click-stream-log-analyze</module>
         <module>specific-sprider</module>
+        <module>spider-xiecheng</module>
+        <module>punch</module>
     </modules>
 
 

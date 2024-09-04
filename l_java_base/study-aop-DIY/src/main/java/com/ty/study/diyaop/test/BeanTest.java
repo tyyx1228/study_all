@@ -18,10 +18,10 @@ public class BeanTest {
 	public static void main(String[] args) {
 
 		InputStream in = BeanTest.class.getClassLoader().getResourceAsStream("config.properties");
-		Object o = new BeanFactory(in).getBean("bean");
-		StudentDAO stuDAO = (StudentDAO) o;
+		BeanFactory beanFactory = new BeanFactory(in);
+		StudentDAO stuDAO = beanFactory.getBean("bean");
 		stuDAO.insert();
-		for(Method m :o.getClass().getMethods()){
+		for(Method m : stuDAO.getClass().getMethods()){
 			System.out.println(m);
 		}
 	}

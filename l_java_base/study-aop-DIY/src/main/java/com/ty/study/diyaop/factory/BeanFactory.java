@@ -34,26 +34,26 @@ public class BeanFactory {
 	 * @param name
 	 * @return
 	 */
-	public Object getBean(String name){
-		Object bean = null;
+	public <T> T getBean(String name){
 		try {
 			String className = prop.getProperty(name);
 			Class<?> clazz = Class.forName(className);
-			bean = clazz.newInstance();
-			if(bean instanceof ProxyFactoryBean){
-				ProxyFactoryBean proxyBean = (ProxyFactoryBean)bean;
-				className = prop.getProperty(name+".advice");
-				Advice advice = (Advice) Class.forName(className).newInstance();
+			Object bean = clazz.newInstance();
 
-				advice.setBeforeMessage(prop.getProperty(name+".beforMessage"));
-				advice.setAfterMessage(prop.getProperty(name+".afterMessage"));
-				return proxyBean.getProxy(bean, advice);
-			}
+			className = prop.getProperty(name+".advice");
+			Advice advice = (Advice) Class.forName(className).newInstance();
+
+			advice.setBeforeMessage(prop.getProperty(name+".beforMessage"));
+			advice.setAfterMessage(prop.getProperty(name+".afterMessage"));
+
+			ProxyFactoryBean<T> proxyBean = new ProxyFactoryBean(bean, advice);
+
+			return proxyBean.getProxy();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return bean;
+		return null;
 	}
 
 

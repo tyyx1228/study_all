@@ -8,7 +8,7 @@ public class ItemIdPartitioner extends Partitioner<OrderBean, NullWritable>{
 
 	@Override
 	public int getPartition(OrderBean key, NullWritable value, int numPartitions) {
-		//指定item_id相同的bean发往相同的reducer task
+		//鎸囧畾item_id鐩稿悓鐨刡ean鍙戝線鐩稿悓鐨剅educer task
 		return (key.getItemid().hashCode() & Integer.MAX_VALUE) % numPartitions;
 		
 	}

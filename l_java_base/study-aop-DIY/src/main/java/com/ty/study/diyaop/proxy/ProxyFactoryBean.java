@@ -1,5 +1,9 @@
 package com.ty.study.diyaop.proxy;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -10,16 +14,20 @@ import java.lang.reflect.Proxy;
  *@time 2015年2月7日 下午1:46:15
  */
 
-public class ProxyFactoryBean {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProxyFactoryBean<T> {
+
+	private T target;
+	private Advice advice;
 	/**
 	 * 获得代理类
-	 * @param target
-	 * @param advice
 	 * @return
 	 */
-	public Object getProxy(final Object target, final Advice advice){
+	public T getProxy(){
 
-		Object obj = Proxy.newProxyInstance(
+		T obj = (T) Proxy.newProxyInstance(
 				target.getClass().getClassLoader(),
 				target.getClass().getInterfaces(),
 				new InvocationHandler(){
