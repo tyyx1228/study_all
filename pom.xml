@@ -32,6 +32,7 @@
         <module>fv_springboot</module>
         <module>integrated_projects</module>
         <module>study_design_pattern</module>
+        <module>study_netty</module>
 <!--        <module>web_springmvc</module>-->
 
 

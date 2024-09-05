@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xxxx-content">
+
+    <resultMap id="content" type="com.ty.model.ContentDetail">
+        <result property="urlName" column="url_name"></result>
+        <result property="url" column="url"></result>
+        <result property="auth" column="auth"></result>
+        <result property="desc" column="desc"></result>
+        <result property="fromtUrl" column="from_url"></result>
+        <result property="contentDeployTime" column="deploy_time"></result>
+        <result property="startTime" column="spider_time"></result>
+    </resultMap>
+
+    <insert id="insertData" parameterType="com.ty.model.ContentDetail">
+        insert INTO t_xxxx(
+            url_name,
+            url,
+            auth,
+            `desc`,
+            from_url,
+            deploy_time,
+            spider_time,
+            create_time,
+            update_time
+        )VALUES (
+            #{urlName},
+            #{url},
+            #{auth},
+            #{desc},
+            #{fromUrl},
+            #{contentDeployTime},
+            #{startTime},
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <select id="countByUrl" parameterType="map" resultType="long">
+        select count(1) from t_xxxx where url=#{param}
+    </select>
+</mapper>
