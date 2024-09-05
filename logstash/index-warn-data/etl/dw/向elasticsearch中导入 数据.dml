@@ -1,0 +1,63 @@
+--本sql须在hive命令行下执行。
+
+--不使用spark,不用设置
+set hive.execution.engine=spark;
+set spark.master=yarn-cluster;
+set spark.executor.memory=2048m;
+set spark.executor.cores=2;
+set spark.executor.instances=6;
+
+add jar /root/elasticsearch-hadoop-6.1.3.jar;
+set hive.support.quoted.identifiers=none; --按正则筛选字段
+from ods.point_warn_joined t
+insert overwrite table dw.point_warn_joined
+select
+t.w_record_id,
+t.w_tp_id,
+t.w_tp_kkscode,
+t.w_value,
+t.w_start_time,
+t.w_stop_time,
+t.w_level,
+t.w_service_type,
+t.w_duration,
+t.w_duration_desc,
+t.w_status,
+t.w_class_val,
+t.msg_issend,
+t.rid,
+t.is_appraise,
+t.create_date,
+CURRENT_TIMESTAMP as update_date,
+t.tp_desc,
+t.professional,
+t.val_unit,
+t.w_value_high,
+t.w_value_low,
+t.unit_id,
+t.unit_status,
+t.w_bz_factor,
+t.w_bz_end_factor ,
+t.w_dc_factor,
+t.w_dc_end_factor,
+t.w_bm_factor,
+t.w_bm_end_factor,
+t.w_jt_factor,
+t.w_jt_end_factor,
+t.ph_id,
+t.ph_name,
+t.ph_grid,
+t.ph_simple_name,
+t.ctrl_state,
+t.alarm_reason,
+t.process_mode,
+t.process_method ,
+t.process_state,
+t.plan_eliminate_date ,
+t.submitter,
+t.submit_date,
+t.comment,
+t.batch,
+t.ismian,
+t.sjxcrq
+;

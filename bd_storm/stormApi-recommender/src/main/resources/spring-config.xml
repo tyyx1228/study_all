@@ -5,9 +5,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!--Service -->
-    <bean name="userService" class="com.ty.study.recommender.recommender.service.impl.UserProfileServiceImpl"/>
-    <bean name="productService" class="com.ty.study.recommender.recommender.service.impl.ProductServiceImpl"/>
-    <bean name="ruleService" class="com.ty.study.recommender.recommender.service.impl.RuleServiceImpl"/>
-    <bean name="recommendModelService" class="com.ty.study.recommender.recommender.service.impl.model.RecommendModelServiceImpl"/>
-    <bean name="recommendService" class="com.ty.study.recommender.recommender.service.impl.RecommendServiceImpl"/>
+    <bean name="userService" class="com.ty.recommender.recommender.service.impl.UserProfileServiceImpl"/>
+    <bean name="productService" class="com.ty.recommender.recommender.service.impl.ProductServiceImpl"/>
+    <bean name="ruleService" class="com.ty.recommender.recommender.service.impl.RuleServiceImpl"/>
+    <bean name="recommendModelService" class="com.ty.recommender.recommender.service.impl.model.RecommendModelServiceImpl"/>
+    <bean name="recommendService" class="com.ty.recommender.recommender.service.impl.RecommendServiceImpl"/>
 </beans>

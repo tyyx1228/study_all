@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 
 public class WholeFileInputFormat extends FileInputFormat<NullWritable, BytesWritable>{
-	//ÉèÖÃÃ¿¸öĞ¡ÎÄ¼ş²»¿É·ÖÆ¬,±£Ö¤Ò»¸öĞ¡ÎÄ¼şÉú³ÉÒ»¸ökey-value¼üÖµ¶Ô
+	//è®¾ç½®æ¯ä¸ªå°æ–‡ä»¶ä¸å¯åˆ†ç‰‡,ä¿è¯ä¸€ä¸ªå°æ–‡ä»¶ç”Ÿæˆä¸€ä¸ªkey-valueé”®å€¼å¯¹
 	
 	@Override
 	protected boolean isSplitable(JobContext context, Path file) {

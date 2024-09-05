@@ -169,12 +169,10 @@ public class HPointNameIndexCoprocessor extends BaseRegionObserver {
 
 
             if(operation instanceof Put){
-                Put indexPut = new Put();
-                indexMutations[i] = indexPut;
+                indexMutations[i] = operation;
 
             }else if(operation instanceof Delete){
-                Delete indexDelete = new Delete();
-                indexMutations[i] = indexDelete;
+                indexMutations[i] = operation;
 
             }
         }

@@ -1,0 +1,309 @@
+"object" : {
+
+
+/*  全局排序分页  */
+/* post http://10.10.1.60:9200/warn_event/point_warn/_search */
+{
+  "from": 3000,
+  "size": 10,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "must_not": [],
+      "should": []
+    }
+  },
+  "sort": [
+    {
+      "w_start_time": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+,/* 按时间范围过滤，并按时间排序，分页 */
+{
+  "from": 91000,
+  "size": 100,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "w_start_time": {
+              "gt": "2018-02-18T00:00:00",
+              "lt": "2018-02-19T00:00:00"
+            }
+          }
+        }
+      ],
+      "must_not": [],
+      "should": []
+    }
+  },
+  "sort": [
+    {
+      "w_start_time": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+,/* 按时间范围和测点名称过滤，用时间排序，并分页 */
+{
+  "from": 0,
+  "size": 100,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "w_start_time": {
+              "gt": "2018-02-18T00:00:00",
+              "lt": "2018-04-19T00:00:00"
+            }
+          }
+        },
+        {
+          "term": {
+            "unit_status.keyword": "1"
+          }
+        },
+        {
+          "term": {
+            "w_tp_kkscode.keyword": "NMDH:20HFB10CE101XQ01"
+          }
+        }
+      ],
+      "must_not": [],
+      "should": []
+    }
+  },
+  "sort": [
+    {
+      "w_start_time": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+
+,/* 聚合查询，最大时间、最小时间 */
+/* post http://10.10.1.60:9200/point_warn/itemList/_search  */
+{
+  "size": 0,
+  "_source": false,
+  "aggs": {
+    "max_StartTime": {
+      "max": {
+        "field": "w_start_time"
+      }
+    },
+    "min_StartTime": {
+      "min": {
+        "field": "w_start_time"
+      }
+    }
+  }
+}
+
+
+
+,/* 过虑聚合*/
+{
+  "size": 0,
+  "_source": false,
+  "aggs": {
+    "sdf": {
+      "filter": {
+        "term": {
+          "w_tp_kkscode.keyword": "NXND:DCS1_10LBA11CP105"
+        }
+      },
+      "aggs": {
+        "max_StartTime": {
+          "max": {
+            "field": "w_start_time"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+,/* ## 统计聚合：包括count,min,max,avg,sum  */
+{
+  "_source": false,
+  "aggs": {
+    "avg_stats": {
+      "stats": {
+        "field": "age"
+      }
+    }
+  }
+}
+
+
+,/*均值聚合*/
+/*t /megacorp/employee/_search*/
+{
+  "_source": false,
+  "aggs": {
+    "avg_age": {
+      "avg": {
+        "field": "age"
+      }
+    }
+  }
+}
+
+,
+
+/*分组聚合统计
+
+若分组字段报错：
+Fielddata is disabled on text fields by default. Set fielddata=true on [ph_simple_name] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead
+解决办法：
+step1:  get /warn_event/point_warn/_mapping/field/ph_simple_name
+response:
+*/
+{
+  "warn_event": {
+    "mappings": {
+      "point_warn": {
+        "ph_simple_name": {
+          "full_name": "ph_simple_name",
+          "mapping": {
+            "ph_simple_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              },
+              "fielddata": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* step2:
+  put /warn_event/_mapping/point_warn
+*/
+{
+  "properties": {
+    "ph_simple_name": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      },
+      "fielddata": true
+    }
+  }
+}
+
+/* SELECT count(ph_simple_name) FROM warn_event/point_warn group by ph_simple_name
+ * 以上sql的对应的json如下
+ */
+{
+  "from": 0,
+  "size": 0,
+  "_source": {
+    "includes": [
+    "COUNT"
+    ],
+    "excludes": []
+  },
+  "aggregations": {
+    "ph_simple_name": {
+      "terms": {
+        "field": "ph_simple_name",
+        "size": 200,
+        "min_doc_count": 1,
+        "shard_min_doc_count": 0,
+        "show_term_doc_count_error": false,
+        "order": [
+          {
+          "_count": "desc"
+          },
+          {
+            "_key": "asc"
+          }
+        ]
+      },
+      "aggregations": {
+      "COUNT(ph_simple_name)": {
+        "value_count": {
+          "field": "ph_simple_name"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

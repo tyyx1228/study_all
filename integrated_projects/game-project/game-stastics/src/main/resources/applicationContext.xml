@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- springmvc 扫包 -->
-	<context:component-scan base-package="com.ty.study"/>
+	<context:component-scan base-package="com.ty"/>
 	
 	<!-- c3p0-->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -34,12 +34,12 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:mappers/*.xml"/>
-		<property name="typeAliasesPackage" value="com.ty.study.domain"/>
+		<property name="typeAliasesPackage" value="com.ty.domain"/>
 	</bean>
 	
 	<!-- Mybatis 自己扫包  -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.ty.study.dao"/>
+		<property name="basePackage" value="com.ty.dao"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	

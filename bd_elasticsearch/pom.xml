@@ -2,18 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    <parent>
+        <groupId>com.ty</groupId>
+        <artifactId>study_all</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.study</groupId>
+    <artifactId>bd_elasticsearch</artifactId>
+
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>study-es-api</module>
         <module>study-import-data</module>
         <module>spring-data-es</module>
     </modules>
-    <artifactId>bd_elasticsearch</artifactId>
+
 
 </project>

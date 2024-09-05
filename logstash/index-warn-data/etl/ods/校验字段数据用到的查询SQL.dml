@@ -1,0 +1,40 @@
+
+--检查ods.ods_jsjd_warn_data_list中的字段
+select * from ods.ods_jsjd_warn_data_list where w_id='9baa96ec-8f44-41c1-b30f-3f927c0271d8';
+select * from ods.ods_jsjd_warn_data_list where create_date is NULL;
+select * from ods.ods_jsjd_warn_data_list where w_status<>1;
+select count(1) from ods.ods_jsjd_warn_data_list;
+select max(a.w_date), min(a.endtime) from ods.ods_jsjd_warn_data_list a where a.endtime is null or a.endtime='\\N';
+select * from ods.ods_jsjd_warn_data_list a where a.w_id is null or a.w_id='\\N';
+select count(a.w_date) from ods.ods_jsjd_warn_data_list a where  a.w_date < '2018-07-01 00:00:00';
+
+--检查 ods.tes_ba_points_index表中的字段
+SELECT count(DISTINCT p_i_id) FROM ods.tes_ba_points_index;
+SELECT * FROM ods.tes_ba_points_index where t_p_code='NMDH:20HTA50CQ004';
+SELECT * FROM ods.tes_ba_points_index where p_i_id is null or p_i_id='' or p_i_id='\N';
+SELECT * FROM ods.tes_ba_points_index WHERE  P_I_ID= 'E2E24084360C44C3A1BF3C681517000B';
+
+
+--检查ods.point_warn_joined 表中的字段
+select  * from ods.point_warn_joined;
+desc ods.point_warn_joined;
+select count(1), max(a.w_start_time), max(a.w_stop_time) from ods.point_warn_joined a where a.w_start_time<'2018-07-01 00:00:00';;
+select * from ods.point_warn_joined a where a.w_status<>1 order by a.w_start_time;
+
+select count(1), min(w_start_time) from ods.point_warn_joined a where a.w_status<>1;
+select * from ods.point_warn_joined where a 2018-01-13 20:08:18
+
+desc ods.point_warn_joined;
+select * from ods.point_warn_joined;
+select count(1) from ods.point_warn_joined;
+select * from ods.point_warn_joined where w_record_id='9baa96ec-8f44-41c1-b30f-3f927c0271d8';
+
+select a.ph_simple_name, count(1) from ods.point_warn_joined a group by a.ph_simple_name;
+select * from ods.point_warn_joined a where a.ph_id  is null;
+select * from ods.point_warn_joined a where a.professional  is null;
+select * from ods.point_warn_joined a where a.unit_id is null;
+select DISTINCT(a.w_tp_id), a.w_tp_kkscode from ods.point_warn_joined a where a.unit_id is null;
+select count(1) from ods.point_warn_joined a where a.ctrl_state is not null;
+select  DISTINCT(a.w_tp_id), a.w_tp_kkscode from ods.point_warn_joined a where a.w_tp_kkscode like 'TXJC%';
+select  DISTINCT(a.unit_id), a.w_tp_kkscode from ods.point_warn_joined a where a.w_tp_kkscode like 'TXJC%';
+

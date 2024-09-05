@@ -4,7 +4,7 @@ import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
 /**
- * ÓÃÓÚ¿ØÖÆshuffle¹ı³ÌÖĞreduce¶Ë¶Ôkv¶ÔµÄ¾ÛºÏÂß¼­
+ * ç”¨äºæ§åˆ¶shuffleè¿‡ç¨‹ä¸­reduceç«¯å¯¹kvå¯¹çš„èšåˆé€»è¾‘
  * @author duanhaitao@itcast.cn
  *
  */
@@ -21,7 +21,7 @@ public class ItemidGroupingComparator extends WritableComparator {
 		OrderBean abean = (OrderBean) a;
 		OrderBean bbean = (OrderBean) b;
 		
-		//½«item_idÏàÍ¬µÄbean¶¼ÊÓÎªÏàÍ¬£¬´Ó¶ø¾ÛºÏÎªÒ»×é
+		//å°†item_idç›¸åŒçš„beanéƒ½è§†ä¸ºç›¸åŒï¼Œä»è€Œèšåˆä¸ºä¸€ç»„
 		return abean.getItemid().compareTo(bbean.getItemid());
 		
 	}

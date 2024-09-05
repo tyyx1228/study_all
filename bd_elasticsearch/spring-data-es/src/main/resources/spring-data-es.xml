@@ -9,7 +9,7 @@ http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.
 
 
 
-    <elasticsearch:repositories base-package="com.ty.study" />
+    <elasticsearch:repositories base-package="com.ty" />
 
     <!-- TransportClient 使用命名空间的传输客户端-->
     <elasticsearch:transport-client id="client" cluster-nodes="10.10.1.60:9300,10.10.1.60:9300" />
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.
         <constructor-arg name="client" ref="client"/>
     </bean>
 
-    <bean id="employeeService" class="com.ty.study.service.EmployeeServiceImpl">
+    <bean id="employeeService" class="com.ty.service.EmployeeServiceImpl">
         <!-- EmployeeRepository继承自ElasticsearchRepository，容器会自动实例化 -->
         <property name="employeeRepository" ref="employeeRepository" ></property>
     </bean>

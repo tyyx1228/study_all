@@ -1,0 +1,48 @@
+
+
+--加载抱紧信息
+--truncate table ods.ods_jsjd_warn_data_list;
+load data inpath '/sqoop-import/oracle/TES_BA_T_P_W_LIST/*' overwrite into table ods.ods_jsjd_warn_data_list;
+select * from ods.ods_jsjd_warn_data_list;
+select count(*) from ods.ods_jsjd_warn_data_list a where a.kks_code not like 'TXJC%';
+
+
+
+--加载测点信息
+truncate table ods.tes_ba_points_index;
+load data inpath '/sqoop-import/oracle/TES_BA_POINTS_INDEX/*' overwrite into table ods.tes_ba_points_index;
+
+select * from ods.tes_ba_points_index;
+select a.* from ods.tes_ba_points_index a limit 10;
+SELECT count(1) FROM ods.tes_ba_points_index;
+--alter table ods.tes_ba_points_index rename to ods.tes_ba_points_index_bak;
+--create table ods.tes_ba_points_index like ods.tes_ba_points_index_bak;
+--from ods.tes_ba_points_index_bak a
+--insert overwrite table ods.tes_ba_points_index
+--select * where p_i_id<>'';
+
+
+
+
+--加载141抱紧信息
+truncate table ods.ods_jsjd_warn_data_list_141;
+select * from ods.ods_jsjd_warn_data_list_141;
+select count(1) from ods.ods_jsjd_warn_data_list;
+select count(1) from ods.ods_jsjd_warn_data_list_141;
+load data inpath '/sqoop-import/oracle/TES_BA_T_P_W_LIST141/*' overwrite into table ods.ods_jsjd_warn_data_list_141;
+
+
+
+
+
+--加载测点报警受控信息数据
+truncate table ods.baojing_info_sc;
+load data inpath '/sqoop-import/oracle/BAOJING_INFO_SC/*' overwrite into table ods.baojing_info_sc;
+select a.* from ods.baojing_info_sc a limit 10;
+
+
+--加载电厂信息表
+truncate table ods.xip_pub_orgs;
+select * from  ods.xip_pub_orgs;
+load data inpath '/sqoop-import/oracle/XIP_PUB_ORGS/*' overwrite into table ods.xip_pub_orgs;
+select * from ods.xip_pub_orgs limit 10;

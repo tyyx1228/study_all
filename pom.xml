@@ -17,7 +17,26 @@
     </properties>
 
     <modules>
+        <module>bd_elasticsearch</module>
+        <module>bd_flume</module>
+        <module>bd_hadoop</module>
+        <module>bd_kafka</module>
+        <module>bd_storm</module>
+        <module>db_redis</module>
+
+        <module>bd_mlib</module>
+        <module>bd_spark_v1</module>
+        <module>bd_zookeeper</module>
+        <module>fv_log4j1x</module>
+        <module>fv_log4j2</module>
+        <module>fv_springboot</module>
+        <module>integrated_projects</module>
+        <module>study_design_pattern</module>
+<!--        <module>web_springmvc</module>-->
+
+
         <module>l_java_base</module>
+        <module>l_scala_base</module>
         <module>bd_spark_v2</module>
         <module>l_java_base/study_data_struct</module>
         <module>open-source-project</module>
